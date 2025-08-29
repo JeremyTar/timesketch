@@ -34,7 +34,9 @@ class AzureAI(interface.LLMProvider):
             "top_p": self.config.get("top_p", 0.95),
             "top_k": self.config.get("top_k", 10),
         }
-        response = requests.post(url, headers=headers, json=data, timeout=60)
+        timeout = self.config.get("timeout", 60)
+
+        response = requests.post(url, headers=headers, json=data, timeout=timeout)
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"]
 
