@@ -31,8 +31,7 @@ class AzureAI(interface.LLMProvider):
             "messages": [{"role": "user", "content": prompt}],
             "max_tokens": self.config.get("max_output_tokens", 1024),
             "temperature": self.config.get("temperature", 0.2),
-            "top_p": self.config.get("top_p", 0.95),
-            "top_k": self.config.get("top_k", 10),
+            "top_p": self.config.get("top_p", 0.95)
         }
         timeout = self.config.get("timeout", 60)
 
