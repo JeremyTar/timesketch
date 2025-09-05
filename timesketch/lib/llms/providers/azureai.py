@@ -25,7 +25,7 @@ class AzureAI(interface.LLMProvider):
         url = f"{self.endpoint}/openai/deployments/{self.model}/chat/completions?api-version={self.api_version}"
         headers = {
             "Content-Type": "application/json",
-            "api-key": self.api_key,
+            "api-key": self.api_key
         }
         data = {
             "messages": [{"role": "user", "content": prompt}],
@@ -33,9 +33,7 @@ class AzureAI(interface.LLMProvider):
             "temperature": self.config.get("temperature", 0.2),
             "top_p": self.config.get("top_p", 0.95)
         }
-        timeout = self.config.get("timeout", 60)
-
-        response = requests.post(url, headers=headers, json=data, timeout=timeout)
+        response = requests.post(url, headers=headers, json=data, timeout=60)
         response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"]
 
